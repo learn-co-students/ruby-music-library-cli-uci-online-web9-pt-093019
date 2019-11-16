@@ -14,8 +14,12 @@ class Artist < Attributes
   end
 
   def genres
-  #  genres_array = []
-  #  Genre.songs.each {|song| }
+    genres_array = []
+    Song.all.each do |song|
+       if song.artist == self && !genres_array.include?(song.genre)
+         genres_array << song.genre
+       end
+     end
   end
 
 end #end of class

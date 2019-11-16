@@ -9,8 +9,13 @@ class Artist < Attributes
   end
 
   def add_song(song)
-    song.artist = self #unless song.artist.name.include?(@name)
-    self.songs << song #unless self.songs.name.include?(song.name)
+    song.artist = self unless song.artist
+    self.songs << song unless self.songs.include?(song)
+  end
+
+  def genres
+  #  genres_array = []
+  #  Genre.songs.each {|song| }
   end
 
 end #end of class

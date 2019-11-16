@@ -1,11 +1,22 @@
 require_relative '../lib/attributes.rb'
 
 class Song < Attributes
-  attr_accessor :artist
+  attr_reader :artist, :genre
 
-  def initialize(name, artist = nil) # overwrite parent method :(
+  def artist=(artist)
+    @artist = artist
+    artist.add_song(self)
+  end
+
+  def genre=(genre)
+    @genre = genre
+    genre.songs << self unless genre.songs.include?(self)
+  end
+
+  def initialize(name, artist = nil, genre = nil) # overwrite parent method :(
     @name = name
-    @artist = artist unless artist == nil
+    self.artist=(artist) if artist
+    self.genre=(genre) if genre
     self.save
   end
 

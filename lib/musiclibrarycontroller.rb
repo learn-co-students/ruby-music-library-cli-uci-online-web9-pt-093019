@@ -9,7 +9,7 @@ end
 def call
   puts "Welcome to your music library!"
   input = ""
-  while input == "" || input != "exit"
+  while input != "exit"
     puts "To list all of your songs, enter 'list songs'."
     puts "To list all of the artists in your library, enter 'list artists'."
     puts "To list all of the genres in your library, enter 'list genres'."
@@ -19,8 +19,24 @@ def call
     puts "To quit, type 'exit'."
     puts "What would you like to do?"
     input = gets.chomp
+
+    case input
+      when "list songs"
+        list_songs
+      when "list artists"
+        list_artists
+      when "list genres"
+        list_genres
+      when "list artist"
+        list_songs_by_artist
+      when "list genre"
+        list_songs_by_genre
+      when "play song"
+        play_song
+      end #end of case block
   end #end of while loop
-end
+
+end #end of method
 
 def list_songs
   Song.all.sort{|s1,s2| s1.name <=> s2.name}.each.with_index(1) do |s,i|
@@ -65,6 +81,12 @@ end
 
 def play_song
   input = ""
+  puts "Which song number would you like to play?"
+  input = gets.chomp.to_i
+  #"Playing Larry Csonka by Action Bronson"
+  Song.all.sort{|s1,s2| s1.name <=> s2.name}.each.with_index(1) do |s,i|
+    puts "Playing #{s.name} by #{s.artist.name}" if i == input
+  end
 
 end
 

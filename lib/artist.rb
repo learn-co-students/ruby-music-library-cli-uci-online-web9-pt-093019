@@ -2,6 +2,7 @@ require_relative '../lib/attributes.rb'
 
 class Artist < Attributes
   attr_accessor :songs
+  extend Concerns::Findable
 
   def initialize(name)
     super # build on parent method :)
@@ -14,12 +15,7 @@ class Artist < Attributes
   end
 
   def genres
-    genres_array = []
-    Song.all.each do |song|
-       if song.artist == self && !genres_array.include?(song.genre)
-         genres_array << song.genre
-       end
-     end
-  end
+    self.songs.collect{ |song| song.genre }.uniq
+  end #end of method
 
 end #end of class

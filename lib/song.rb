@@ -20,11 +20,11 @@ class Song < Attributes
     self.save
   end
 
-  def find_by_name(name)
-    self.all.find {|song| song.name == name}
+  def self.find_by_name(name)
+    self.all.detect {|song| song.name == name}
   end
 
-  def find_or_create_by_name(name)
+  def self.find_or_create_by_name(name)
     song = self.find_by_name(name)
     if song
       return song
@@ -33,6 +33,21 @@ class Song < Attributes
     end #end of if block
   end #end of method
 
+  def self.new_from_filename(file)
+    array = file.split(" - ")
+    artist = Artist.find_or_create_by_name(array[0])
+    song_name = array[1]
+    genre = Genre.find_or_create_by_name(array[2].split(".")[0])
+    new_song = Song.new(song_name, artist, genre)
+  end
 
+  def self.create_from_filename(file)
+  #  array = file.split(" - ")
+  #  artist = Artist.find_or_create_by_name(array[0])
+  #  song_name = array[1]
+  #  genre = Genre.find_or_create_by_name(array[2].split(".")[0])
+  #  new_song = Song.new(song_name, artist, genre)
+  self.new_from_filename(file)
+  end
 
-end
+end #end of class

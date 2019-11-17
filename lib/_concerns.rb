@@ -1,6 +1,6 @@
 module Concerns::Findable # class methods
   def find_by_name(name)  # class method
-    self.all.detect {|song| song.name == name}
+    self.all.detect {|instance| instance.name == name}
   end
 
   def find_or_create_by_name(name)
@@ -12,4 +12,4 @@ module Concerns::Findable # class methods
     end
 end
 
-end 
+end

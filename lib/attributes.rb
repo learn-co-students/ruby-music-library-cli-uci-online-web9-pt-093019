@@ -1,3 +1,6 @@
+
+#doesn't work for this project because artist, song, and genre all
+#share the @@all array in this class :(
 class Attributes
   attr_accessor :name
   @@all = []

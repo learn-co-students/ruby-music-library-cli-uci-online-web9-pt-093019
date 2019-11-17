@@ -1,12 +1,36 @@
-require_relative '../lib/attributes.rb'
+#require_relative '../lib/attributes.rb'
 
-class Artist < Attributes
-  attr_accessor :songs
+class Artist #< Attributes
   extend Concerns::Findable
+  attr_accessor :songs, :name
+  @@all = []
 
   def initialize(name)
-    super # build on parent method :)
+    #super # build on parent method :)
+    @name = name
+    self.save
     @songs = []
+  end
+
+
+    ## Class Methods ##
+    def self.all
+      @@all
+    end
+
+    def self.destroy_all
+      @@all = []
+    end
+
+    def self.create(name)
+
+      self.new(name)
+    end
+
+    ## Instance Methods ##
+
+  def save
+    @@all << self
   end
 
   def add_song(song)
